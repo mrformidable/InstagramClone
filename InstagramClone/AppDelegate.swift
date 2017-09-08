@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        FirebaseApp.configure()
+        
+        if Auth.auth().currentUser == nil {
+            window?.rootViewController = LoginViewController()
+        } else {
+            let viewController = MainTabController()
+            window?.rootViewController = viewController
+        }
+        
         return true
     }
 
